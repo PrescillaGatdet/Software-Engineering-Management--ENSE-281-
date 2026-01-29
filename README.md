@@ -19,3 +19,5 @@
 - The game changer in this idea is to introduce a negotiation option for both parties, so they can agree on a common budget, and eliminate the need of waiting for or working under big players in the market.
 - The workers will accept the gigs, and the users will be notified that these workers are willing to get the job done, and the user can decide whom he wants, based on the worker profile ratings and bargained price.
 - The platform will be making sure that both sides meet their respective needs with trust and reliability, with a friendly budget, making it a win-win situation for both sides.
+
+## Hope you'll enjoy going through the work and efforts put in by the team!
