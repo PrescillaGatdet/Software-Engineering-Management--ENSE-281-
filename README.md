@@ -2,6 +2,12 @@
 
 ## Welcome to the GitHub repository for ENSE 281 - Winter 2026 - Group E
 
+### The group members are following:
+- Ali Abdullah
+- Nyabijek Gatdet
+- Chiemego Emmanuel Nwokolo
+- Chinedu Godswill Nwoye
+
 ### In this repository, the group will be posting different stages of the project as following:
 - Project Initialization
 - Project Prerequisites & System Design
