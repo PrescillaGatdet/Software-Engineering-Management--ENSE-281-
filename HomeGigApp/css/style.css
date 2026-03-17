@@ -1,0 +1,180 @@
+/* ==========================================
+   GLOBAL & LAYOUT
+   ========================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.main-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    /* Fixed height container anchors buttons to the same spot on Login/Register */
+    height: 85vh; 
+}
+
+/* GLOBAL BUTTON STYLES */
+.homegigs-button {
+    font-family: 'Fugaz One', cursive;
+    text-decoration: none;
+    font-size: 1.2rem;
+    padding: 12px 0;
+    width: 100%;
+    border-radius: 4px;
+    border: 2px solid #000000;
+    text-align: center;
+    transition: transform 0.2s;
+    cursor: pointer;
+    display: block;
+}
+
+.homegigs-button:hover { transform: scale(1.05); }
+
+/* Global Form Page Buttons (Black) */
+.login-btn, .register-btn { 
+    background-color: #000000; 
+    color: #FFFFFF; 
+}
+
+/* THE ANCHOR: This container stays at the exact same spot on every page */
+.interaction-area {
+    margin-top: auto; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding-bottom: 20px;
+}
+
+#login-button-section, #register-button-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 240px; 
+    align-items: center;
+}
+
+.back-button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 25px; 
+}
+
+.back-arrow-link {
+    background: #000;
+    padding: 10px 15px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ==========================================
+   INDEX PAGE STYLES
+   ========================================== */
+
+/* Shifting the logo and buttons down ~2 lines on index.html */
+body:not(.login-page):not(.register-page) .main-wrapper {
+    margin-top: 50px;
+}
+
+#HomeGigsLogo {
+    width: 90%;
+    max-width: 650px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+#dynamic-content-area {
+    width: 100%;
+    height: 160px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#button-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 220px;
+}
+
+.index-btn { 
+    background-color: #8800B5; 
+    color: #F5F5DC; 
+}
+
+/* Progress/Animations */
+.progress-container { width: 350px; max-width: 90%; height: 26px; background-color: #EEEEEE; border: 3px solid #000000; border-radius: 13px; overflow: hidden; margin: 0 auto; }
+.progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #8800B5 0%, #F5F5DC 100%); animation: loadProgress 4s ease-in-out forwards; }
+@keyframes loadProgress { to { width: 100%; } }
+.fade-in { display: flex !important; animation: fadeInEffect 0.5s ease-in forwards; }
+@keyframes fadeInEffect { from { opacity: 0; } to { opacity: 1; } }
+
+/* ==========================================
+   FORM PAGES (LOGIN & REGISTER)
+   ========================================== */
+.login-page, .register-page { background-color: #8800B5; }
+
+.form-card {
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    padding: 30px;
+    text-align: left;
+}
+
+/* Login Card Position */
+.login-page .form-card { 
+    width: 400px; 
+    max-width: 95%; 
+    margin-top: 50px; 
+}
+
+/* Register Card Position - Pulling higher to create gap above buttons */
+.register-page .form-card { 
+    width: 550px; 
+    max-width: 95%; 
+    margin-top: -30px; 
+}
+
+/* Global Form Group Styles */
+.input-group label { 
+    display: block; 
+    font-family: 'Fredoka', sans-serif; 
+    font-weight: 600; 
+    margin-bottom: 5px; 
+}
+
+.input-group input { 
+    width: 100%; 
+    padding: 10px; 
+    margin-bottom: 12px; 
+    border: 1px solid #CCC; 
+    border-radius: 4px; 
+}
+
+/* Register Grid Specifics */
+.form-row { 
+    display: flex; 
+    gap: 20px; 
+    width: 100%; 
+}
+
+.form-row .input-group { 
+    flex: 1; 
+}
