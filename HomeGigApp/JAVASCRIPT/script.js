@@ -21,3 +21,41 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
+// -------------------------------
+// Chat Button
+// -------------------------------
+function openChat() {
+  window.location.href = "chat-support.html";
+}
+
+// -------------------------------
+// Bottom Navigation
+// -------------------------------
+function goHome() {
+  window.location.href = "home.html";
+}
+
+function createPost() {
+  window.location.href = "create-post.html";
+}
+
+function goAccount() {
+  window.location.href = "account.html";
+}
+
+// -------------------------------
+// Highlight Active Bottom Nav Button
+// -------------------------------
+document.addEventListener("DOMContentLoaded", function() {
+  const bottomLinks = document.querySelectorAll(".bottom-nav a");
+  const currentPage = window.location.pathname.split("/").pop();
+
+  bottomLinks.forEach(link => {
+    const linkPage = link.getAttribute("href");
+    if (linkPage === currentPage) {
+      // Add an "active" class to highlight current page
+      link.classList.add("active-nav");
+    }
+  });
+});
