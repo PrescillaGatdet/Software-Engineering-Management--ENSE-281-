@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomeGigs | Worker Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Fugaz+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body class="worker-mode">
+
+    <nav id="sidebar">
+        <div class="nav-links">
+            <div class="top-nav">
+                <a href="dashboard-worker.html" class="active">
+                    <img src="IMAGES/HomeSymbol.png" class="nav-icon" alt="Home">
+                </a>
+                <a href="#"><img src="IMAGES/InboxSymbol.png" class="nav-icon" alt="Chats"></a>
+                <a href="earnings.html"><img src="IMAGES/EarningSymbol.png" class="nav-icon" alt="Earnings"></a>
+            </div>
+            
+            <div class="bottom-nav">
+                <a href="account-worker.html"><img src="IMAGES/ProfileSymbol.png" class="nav-icon" alt="Profile"></a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="dashboard-content">
+        <header class="dashboard-header">
+            <div class="title-container">
+                <img id="DashboardLogo" src="IMAGES/HomeGigsLogo.png" alt="HomeGigs Logo">
+                <h1 class="purple-heading">Worker Dashboard</h1>
+            </div>
+            <p class="welcome-text">Welcome [First Name]! Find yourself a gig for now or schedule one for near future and earn money...</p>
+        </header>
+
+        <section class="content-body">
+            <h2 class="carousel-heading">Gigs by category</h2>
+            
+            <div class="carousel-container">
+                <div class="carousel-track">
+                    <img src="IMAGES/AssemblingTile.png" alt="Assembling" class="carousel-tile">
+                    <img src="IMAGES/LeavesRakingTile.png" alt="Leaves Raking" class="carousel-tile">
+                    <img src="IMAGES/MovingTile.png" alt="Moving" class="carousel-tile">
+                    <img src="IMAGES/PaintingTile.png" alt="Painting" class="carousel-tile">
+                    <img src="IMAGES/PlumbingTile.png" alt="Plumbing" class="carousel-tile">
+                    <img src="IMAGES/SnowBlowingTile.png" alt="Snow Blowing" class="carousel-tile">
+                    <img src="IMAGES/WindowsCleaningTile.png" alt="Windows Cleaning" class="carousel-tile">
+                </div>
+            </div>
+
+            <h2 class="carousel-heading">Gigs by time</h2>
+
+            <div class="gigs-time-container">
+                <div class="gig-column">
+                    <div class="column-header">On The Spot</div>
+                    <div class="column-content">
+                        </div>
+                </div>
+
+                <div class="gig-column">
+                    <div class="column-header">Schedule Ahead</div>
+                    <div class="column-content">
+                        </div>
+                </div>
+            </div>
+
+            <div class="placeholder-card">
+                <p>Currently, no gigs are available in your area. Please try again later.</p>
+            </div>
+            
+            <div style="height: 100px;"></div>
+        </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="JAVASCRIPT/script.js"></script>
+</body>
+</html>
