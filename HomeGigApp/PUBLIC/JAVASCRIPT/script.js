@@ -33,7 +33,7 @@ function openChat() {
 // Bottom Navigation
 // -------------------------------
 function goHome() {
-  window.location.href = "home.html";
+  window.location.href = "/";
 }
 
 function createPost() {

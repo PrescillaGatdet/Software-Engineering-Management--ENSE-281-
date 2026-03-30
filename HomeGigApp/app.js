@@ -2,19 +2,22 @@ const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const passport = require("passport");
-const passportLocalMongoose = require("passport-local-mongoose");
+const passportLocalMongoose = require("passport-local-mongoose").default ||
+                             require("passport-local-mongoose");
+require("dotenv").config(); 
 
 const app = express();
 const port = 3000;
 
-app.use(express.static("public"));
+app.set("view engine", "ejs");
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(__dirname + "/PUBLIC"));
 
 mongoose.connect("mongodb://localhost:27017/HomeGigDB")
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.log(err));
 
-app.set("view engine", "ejs");
-app.use(express.urlencoded({ extended: true }));
+console.log(process.env.DB_HOST)
 
 app.use(session({
   secret: "superSecretKey",
@@ -62,9 +65,14 @@ function isLoggedIn(req, res, next) {
   res.redirect("/login");
 }
 
-// Register
+app.get("/", (req, res) => {
+    res.render("index");
+});
+
+//Show Registeristration form
 app.get("/register", (req, res) => res.render("register"));
 
+//Handles new user registration
 app.post("/register", async (req, res) => {
  const { email, password, role } = req.body;
 const newUser = new User({
@@ -84,12 +92,13 @@ const newUser = new User({
   }
 });
 
-// Login
+//Shows Login form
 app.get("/login", (req, res) => res.render("login"));
 
+//Authenticates users login
 app.post("/login", passport.authenticate("local", {
   successRedirect: "/dashboard",
-  failureRedirect: "/login"
+  failureRedirect: "/"
 }));
 
 // Dashboard
