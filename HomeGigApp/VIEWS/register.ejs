@@ -1,73 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HomeGigs | Register</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Fugaz+One&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="CSS/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Fugaz+One&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/CSS/style.css">
 </head>
+
 <body class="register-page">
 
-    <div class="main-wrapper">
-        <div class="form-card">
+    <form action="/register" method="POST">
+
+        <div class="main-wrapper">
             <div class="form-row">
                 <div class="input-group">
                     <label for="fname">First Name:</label>
-                    <input type="text" id="fname" placeholder="Enter first name...">
+                    <input type="text" id="fname" name="firstName" placeholder="Enter first name..." required>
                 </div>
                 <div class="input-group">
                     <label for="lname">Last Name:</label>
-                    <input type="text" id="lname" placeholder="Enter last name...">
+                    <input type="text" id="lname" name="lastName" placeholder="Enter last name..." required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="input-group">
                     <label for="phone">Phone Number:</label>
-                    <input type="text" id="phone" placeholder="Enter phone...">
+                    <input type="text" id="phone" name="phone" placeholder="Enter phone...">
                 </div>
                 <div class="input-group">
                     <label for="email">Email Address:</label>
-                    <input type="email" id="email" placeholder="Enter email...">
+                    <input type="email" id="email" name="email" placeholder="Enter email..." required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="input-group">
                     <label for="address">Street Address:</label>
-                    <input type="text" id="address" placeholder="Enter address...">
+                    <input type="text" id="address" name="address" placeholder="Enter address...">
                 </div>
                 <div class="input-group">
                     <label for="city">City:</label>
-                    <input type="text" id="city" placeholder="Enter city...">
+                    <input type="text" id="city" name="city" placeholder="Enter city...">
                 </div>
             </div>
             <div class="form-row">
                 <div class="input-group">
                     <label for="postal">Postal Code:</label>
-                    <input type="text" id="postal" placeholder="Enter postal code...">
+                    <input type="text" id="postal" name="postalCode" placeholder="Enter postal code...">
                 </div>
                 <div class="input-group">
                     <label for="password">Password:</label>
-                    <input type="password" id="password" placeholder="Create password...">
+                    <input type="password" id="password" name="password" placeholder="Create password..." required>
                 </div>
             </div>
         </div>
 
         <div class="interaction-area">
             <div id="register-button-section">
-    <a href="dashboard-customer.html" class="homegigs-button register-btn">Register as customer</a>
-    <a href="dashboard-worker.html" class="homegigs-button register-btn">Register as worker</a>
-    
+                <select name="role" required>
+                    <option value="">Select Role</option>
+                    <option value="customer">Register as Customer</option>
+                    <option value="worker">Register as Worker</option>
+                </select>
+                <button type="submit">Register</button>
+
+            </div>
+        </div>
+    </form>
+
     <div class="back-button-container">
-        <a href="index.html" class="back-arrow-link">
+        <a href="/" class="back-arrow-link">
             <svg width="60" height="24" viewBox="0 0 60 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1 12H59M1 12L12 1M1 12L12 23" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M1 12H59M1 12L12 1M1 12L12 23" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
             </svg>
         </a>
     </div>
-</div>
-        </div>
-    </div>
-
 </body>
+
 </html>

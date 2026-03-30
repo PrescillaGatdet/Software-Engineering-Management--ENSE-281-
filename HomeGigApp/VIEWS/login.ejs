@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomeGigs | Log In</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Fugaz+One&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/CSS/style.css">
+</head>
+
+<body class="login-page">
+
+    <div class="main-wrapper">
+        <div class="form-card">
+
+            <form action="/login" method="POST">
+                <div class="input-group">
+                    <label for="username">Email Address or Phone Number:</label>
+                    <input type="text" name="username" placeholder="Enter email or phone..." required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password:</label>
+                    <input type="password" name="password" placeholder="Enter password..." required>
+                </div>
+                <div class="interaction-area">
+                    <button type="submit" class="homegigs-button login-btn">
+                        Log In
+                    </button>
+                </div>
+            </form>
+
+            <div class="back-button-container">
+                <a href="/" class="back-arrow-link">
+                    <svg width="60" height="24" viewBox="0 0 60 24" fill="none">
+                        <path d="M1 12H59M1 12L12 1M1 12L12 23" stroke="#FFFFFF" stroke-width="2" />
+                    </svg>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>

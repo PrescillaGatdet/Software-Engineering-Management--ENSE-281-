@@ -2,23 +2,20 @@ const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const passport = require("passport");
-const User = require("./models/User");
-const Gig = require("./models/Gig");
-
 const passportLocalMongoose = require("passport-local-mongoose");
+
 const app = express();
 const port = 3000;
 
-// Connect to MongoDB
+app.use(express.static("public"));
+
 mongoose.connect("mongodb://localhost:27017/HomeGigDB")
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.log(err));
 
-// EJS & body parser
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 
-// Session & Passport
 app.use(session({
   secret: "superSecretKey",
   resave: false,
@@ -28,12 +25,115 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+const userSchema = new mongoose.Schema({
+  username: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
+  role: { type: String, enum: ["customer", "worker"], required: true }
+});
+
+userSchema.plugin(passportLocalMongoose);
+
+const User = mongoose.model("User", userSchema);
+
+const gigSchema = new mongoose.Schema({
+  title: { type: String, required: true },
+  description: { type: String, required: true },
+  details: { type: String },
+  address: { type: String, required: true },
+  date: { type: Date, required: true },
+  price: { type: Number, required: true },
+  images: [String],
+  customer: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  status: {
+    type: String,
+    enum: ["waiting", "bargaining", "confirmed", "completed"],
+    default: "waiting"
+  }
+}, { timestamps: true });
+
+const Gig = mongoose.model("Gig", gigSchema);
+
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// Middleware to check login
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) return next();
   res.redirect("/login");
 }
+
+// Register
+app.get("/register", (req, res) => res.render("register"));
+
+app.post("/register", async (req, res) => {
+ const { email, password, role } = req.body;
+const newUser = new User({
+  username: email, 
+  email,
+  role
+});
+  try {
+    const registeredUser = await User.register(newUser, password);
+    req.login(registeredUser, (err) => {
+      if (err) return next(err);
+      res.redirect("/dashboard");
+    });
+  } catch (err) {
+    console.log(err);
+    res.send("Error registering user");
+  }
+});
+
+// Login
+app.get("/login", (req, res) => res.render("login"));
+
+app.post("/login", passport.authenticate("local", {
+  successRedirect: "/dashboard",
+  failureRedirect: "/login"
+}));
+
+// Dashboard
+app.get("/dashboard", isLoggedIn, async (req, res) => {
+  const gigs = await Gig.find({ customer: req.user._id });
+  res.render("dashboard", { user: req.user, gigs });
+});
+
+// Show Post Gig form
+app.get("/post-gig", isLoggedIn, (req, res) => {
+  res.render("postGig");
+});
+
+// Handle Post Gig
+app.post("/post-gig", isLoggedIn, async (req, res) => {
+  const { title, description, details, address, date, price } = req.body;
+
+  try {
+    const newGig = new Gig({
+      title,
+      description,
+      details,
+      address,
+      date,
+      price,
+      customer: req.user._id,
+      status: "bargaining" // MVP default
+    });
+
+    await newGig.save();
+    res.redirect("/dashboard");
+  } catch (err) {
+    console.log(err);
+    res.send("Error posting gig");
+  }
+});
+
+// Logout
+app.get("/logout", (req, res) => {
+  req.logout(() => {
+    res.redirect("/login");
+  });
+});
+
+app.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`);
+});
