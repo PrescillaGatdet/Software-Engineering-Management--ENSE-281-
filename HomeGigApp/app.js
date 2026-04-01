@@ -170,6 +170,38 @@ app.post("/post-gig", isLoggedIn, upload.array("gig_images", 5), async (req, res
   }
 });
 
+app.get("/chats-customer", isLoggedIn, (req, res) => {
+  if (req.user.role === "customer") {
+    res.render("chats-customer", { user: req.user });
+  } else {
+    res.redirect("/dashboard-worker");
+  }
+});
+
+app.get("/chats-worker", isLoggedIn, (req, res) => {
+  if (req.user.role === "worker") {
+    res.render("chats-worker", { user: req.user });
+  } else {
+    res.redirect("/dashboard-customer");
+  }
+});
+
+app.get("/account-customer", isLoggedIn, (req, res) => {
+  if (req.user.role === "customer") {
+    res.render("account-customer", { user: req.user });
+  } else {
+    res.redirect("/dashboard-worker");
+  }
+});
+
+app.get("/account-worker", isLoggedIn, (req, res) => {
+  if (req.user.role === "worker") {
+    res.render("account-worker", { user: req.user });
+  } else {
+    res.redirect("/dashboard-customer");
+  }
+});
+
 // Logout
 app.get("/logout", (req, res) => {
   req.logout(() => {
