@@ -22,40 +22,49 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// -------------------------------
-// Chat Button
-// -------------------------------
-function openChat() {
-  window.location.href = "chat-support.html";
-}
 
-// -------------------------------
-// Bottom Navigation
-// -------------------------------
-function goHome() {
-  window.location.href = "/";
-}
 
-function createPost() {
-  window.location.href = "create-post.html";
-}
+document.addEventListener("DOMContentLoaded", () => {
+    const loginBtn = document.querySelector(".login-btn");
+    const registerBtn = document.querySelector(".register-btn");
 
-function goAccount() {
-  window.location.href = "account.html";
-}
-
-// -------------------------------
-// Highlight Active Bottom Nav Button
-// -------------------------------
-document.addEventListener("DOMContentLoaded", function() {
-  const bottomLinks = document.querySelectorAll(".bottom-nav a");
-  const currentPage = window.location.pathname.split("/").pop();
-
-  bottomLinks.forEach(link => {
-    const linkPage = link.getAttribute("href");
-    if (linkPage === currentPage) {
-      // Add an "active" class to highlight current page
-      link.classList.add("active-nav");
+    // LOGIN REDIRECTION
+    if (loginBtn) {
+        loginBtn.addEventListener("click", (e) => {
+            e.preventDefault(); 
+            if (document.body.classList.contains("worker-page")) {
+                window.location.href = "dashboard-worker.html";
+            } else {
+                window.location.href = "dashboard-customer.html";
+            }
+        });
     }
-  });
+
+    // REGISTER REDIRECTION
+    if (registerBtn) {
+        registerBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            if (document.body.classList.contains("worker-page")) {
+                window.location.href = "dashboard-worker.html";
+            } else {
+                window.location.href = "dashboard-customer.html";
+            }
+        });
+    }
+});
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const gigDescription = document.querySelector('textarea[name="description"]');
+
+    if (gigDescription) {
+        gigDescription.addEventListener('input', function() {
+            // Reset height to shrink if text is deleted
+            this.style.height = 'auto';
+            // Set height to match the internal content height
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+    }
 });

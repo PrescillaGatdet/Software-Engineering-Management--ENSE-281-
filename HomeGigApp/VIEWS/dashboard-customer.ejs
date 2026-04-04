@@ -12,15 +12,15 @@
     <nav id="sidebar">
         <div class="nav-links">
             <div class="top-nav">
-                <a href="/dashboard-customer" class="active">
+                <a href="dashboard-customer.html" class="active">
                     <img src="IMAGES/HomeSymbol.png" class="nav-icon" alt="Home">
                 </a>
-                <a href="/chats-customer"><img src="IMAGES/InboxSymbol.png" class="nav-icon" alt="Chats"></a>
-                <a href="/post-gig"><img src="IMAGES/AddPostSymbol.png" class="nav-icon" alt="Add Post"></a>
+                <a href="chats-customer.html"><img src="IMAGES/InboxSymbol.png" class="nav-icon" alt="Chats"></a>
+                <a href="post-gig.html"><img src="IMAGES/AddPostSymbol.png" class="nav-icon" alt="Add Post"></a>
             </div>
             
             <div class="bottom-nav">
-                <a href="/account-customer"><img src="IMAGES/ProfileSymbol.png" class="nav-icon" alt="Profile"></a>
+                <a href="account-customer.html"><img src="IMAGES/ProfileSymbol.png" class="nav-icon" alt="Profile"></a>
             </div>
         </div>
     </nav>
@@ -31,17 +31,72 @@
                 <img id="DashboardLogo" src="IMAGES/HomeGigsLogo.png" alt="HomeGigs Logo">
                 <h1 class="purple-heading">Customer Dashboard</h1>
             </div>
-            <p class="welcome-text">Welcome [First Name]! Manage your gig requests and check out your gig reports here...</p>
+            <p class="welcome-text">Welcome [First Name]! Administer your gig requests and check out your gig reports here...</p>
         </header>
 
         <section class="content-body">
-            <div class="placeholder-card">
-                <p>You have no gigs posted yet. Click on the add gig icon to post a new gig.</p>
+            
+            <h2 class="carousel-heading">Posted Gigs</h2>
+
+            <div class="gigs-time-container">
+                <div class="gig-column">
+                    <div class="column-header">Gig Details</div>
+                    <div class="column-content">
+                        <% if (typeof gigs !== 'undefined' && gigs.length > 0) { %>
+                            <% gigs.forEach(gig => { %>
+                                <div class="gig-detail-tile">
+                                    <h3><%= gig.title.toUpperCase() %></h3>
+                                    <p><strong>Category:</strong> <%= gig.category %></p>
+                                    <p><strong>Budget:</strong> $<%= gig.budget %></p>
+                                    <p><strong>Address:</strong> <%= gig.address %></p>
+                                </div>
+                            <% }); %>
+                        <% } %>
+                    </div>
+                </div>
+
+                <div class="gig-column">
+                    <div class="column-header">Gig Status</div>
+                    <div class="column-content">
+                        <% if (typeof gigs !== 'undefined' && gigs.length > 0) { %>
+                            <% gigs.forEach(gig => { 
+                                // Identify status class
+                                let statusClass = "status-open"; 
+                                let currentStatus = gig.status ? gig.status.toUpperCase() : "OPEN";
+                                
+                                if(currentStatus === "BARGAIN") statusClass = "status-bargain";
+                                else if(currentStatus === "CONFIRM") statusClass = "status-confirm";
+                                else if(currentStatus === "COMPLETED") statusClass = "status-completed";
+
+                                // Format Type with Emojis
+                                let displayDate = "⏳ On The Spot";
+                                if (gig.date_needed) {
+                                    const d = new Date(gig.date_needed);
+                                    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                                    displayDate = "📅 Scheduled - " + months[d.getUTCMonth()] + " " + d.getUTCDate();
+                                }
+                            %>
+                                <div class="gig-status-tile <%= statusClass %>">
+                                    <p><strong>Type:</strong> <%= displayDate %></p>
+                                    <p><strong>Status:</strong> <span class="status-label"><%= currentStatus %></span></p>
+                                </div>
+                            <% }); %>
+                        <% } %>
+                    </div>
+                </div>
             </div>
-            <div style="height: 1200px;"></div>
+
+            <% if (typeof gigs === 'undefined' || gigs.length === 0) { %>
+                <div class="placeholder-card">
+                    <p>Currently, you have no gigs posted. Click on the add gig icon (+) to post a new gig.</p>
+                </div>
+            <% } %>
+            
+            <div style="height: 100px;"></div>
         </section>
     </main>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="JAVASCRIPT/script.js"></script>
 </body>
 </html>

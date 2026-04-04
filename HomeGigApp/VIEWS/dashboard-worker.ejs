@@ -12,15 +12,15 @@
     <nav id="sidebar">
         <div class="nav-links">
             <div class="top-nav">
-                <a href="/dashboard-worker" class="active">
+                <a href="dashboard-worker.html" class="active">
                     <img src="IMAGES/HomeSymbol.png" class="nav-icon" alt="Home">
                 </a>
-                <a href="/chats-worker"><img src="IMAGES/InboxSymbol.png" class="nav-icon" alt="Chats"></a>
-                <a href="/earnings"><img src="IMAGES/EarningSymbol.png" class="nav-icon" alt="Earnings"></a>
+                <a href="chats-worker.html"><img src="IMAGES/InboxSymbol.png" class="nav-icon" alt="Chats"></a>
+                <a href="earnings.html"><img src="IMAGES/EarningSymbol.png" class="nav-icon" alt="Earnings"></a>
             </div>
             
             <div class="bottom-nav">
-                <a href="/account-worker"><img src="IMAGES/ProfileSymbol.png" class="nav-icon" alt="Profile"></a>
+                <a href="account-worker.html"><img src="IMAGES/ProfileSymbol.png" class="nav-icon" alt="Profile"></a>
             </div>
         </div>
     </nav>
@@ -31,17 +31,80 @@
                 <img id="DashboardLogo" src="IMAGES/HomeGigsLogo.png" alt="HomeGigs Logo">
                 <h1 class="purple-heading">Worker Dashboard</h1>
             </div>
-            <p class="welcome-text">Welcome [First Name]! Find a gig available now or one scheduled for near future and earn money...</p>
+            <p class="welcome-text">Welcome [First Name]! Find yourself a gig for now or schedule one for near future and earn money...</p>
         </header>
 
         <section class="content-body">
-            <div class="placeholder-card">
-                <p>There are no gigs available yet. Please try again later.</p>
+            <h2 class="carousel-heading">Gigs by category</h2>
+            
+            <div class="carousel-container">
+                <div class="carousel-track">
+                    <img src="IMAGES/AssemblingTile.png" alt="Assembling" class="carousel-tile">
+                    <img src="IMAGES/LeavesRakingTile.png" alt="Leaves Raking" class="carousel-tile">
+                    <img src="IMAGES/MovingTile.png" alt="Moving" class="carousel-tile">
+                    <img src="IMAGES/PaintingTile.png" alt="Painting" class="carousel-tile">
+                    <img src="IMAGES/PlumbingTile.png" alt="Plumbing" class="carousel-tile">
+                    <img src="IMAGES/SnowBlowingTile.png" alt="Snow Blowing" class="carousel-tile">
+                    <img src="IMAGES/WindowsCleaningTile.png" alt="Windows Cleaning" class="carousel-tile">
+                </div>
             </div>
-            <div style="height: 1200px;"></div>
+
+            <h2 class="carousel-heading">Gigs by time</h2>
+
+            <div class="gigs-time-container">
+                <div class="gig-column">
+                    <div class="column-header">On The Spot</div>
+                    <div class="column-content">
+                        <% if (typeof gigs !== 'undefined' && gigs.length > 0) { %>
+                            <% gigs.forEach(gig => { %>
+                                <% if (!gig.date_needed || gig.date_needed === "") { %>
+                                    <div class="gig-detail-tile">
+                                        <h3><%= gig.title.toUpperCase() %></h3>
+                                        <p><strong>Category:</strong> <%= gig.category %></p>
+                                        <p><strong>Budget:</strong> $<%= gig.budget %></p>
+                                        <p><strong>Address:</strong> <%= gig.address %></p>
+                                    </div>
+                                <% } %>
+                            <% }); %>
+                        <% } %>
+                    </div>
+                </div>
+
+                <div class="gig-column">
+                    <div class="column-header">Schedule Ahead</div>
+                    <div class="column-content">
+                        <% if (typeof gigs !== 'undefined' && gigs.length > 0) { %>
+                            <% gigs.forEach(gig => { %>
+                                <% if (gig.date_needed && gig.date_needed !== "") { 
+                                    const d = new Date(gig.date_needed);
+                                    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                                    let formattedDate = months[d.getUTCMonth()] + " " + d.getUTCDate();
+                                %>
+                                    <div class="gig-detail-tile">
+                                        <h3><%= gig.title.toUpperCase() %></h3>
+                                        <p><strong>Category:</strong> <%= gig.category %></p>
+                                        <p><strong>Budget:</strong> $<%= gig.budget %></p>
+                                        <p><strong>Date:</strong> <%= formattedDate %></p>
+                                        <p><strong>Address:</strong> <%= gig.address %></p>
+                                    </div>
+                                <% } %>
+                            <% }); %>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+
+            <% if (typeof gigs === 'undefined' || gigs.length === 0) { %>
+                <div class="placeholder-card">
+                    <p>Currently, no gigs are available in your area. Please try again later.</p>
+                </div>
+            <% } %>
+            
+            <div style="height: 100px;"></div>
         </section>
     </main>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="JAVASCRIPT/script.js"></script>
 </body>
 </html>
