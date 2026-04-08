@@ -447,6 +447,12 @@ body.customer-mode, body.worker-mode {
     transition: opacity 0.3s ease;
 }
 
+
+.update-gig-btn {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+
 .submit-gig-btn:hover {
     opacity: 0.75;
 }
@@ -546,6 +552,7 @@ body.customer-mode, body.worker-mode {
 }
 
 
+
 /* ==========================================
        GIG TILE REFINED STYLES
    ========================================== */
@@ -563,7 +570,6 @@ body.customer-mode, body.worker-mode {
     transition: transform 0.3s ease;
 }
 
-/* Hover only for Gig Details */
 .gig-detail-tile {
     background-color: #F5F5DC;
     cursor: pointer;
@@ -573,7 +579,6 @@ body.customer-mode, body.worker-mode {
     transform: scale(1.05);
 }
 
-/* Remove interaction and increase text size for Status */
 .gig-status-tile {
     pointer-events: none;
     font-size: 1.1em;
@@ -590,13 +595,11 @@ body.customer-mode, body.worker-mode {
     font-size: 1.2em;
 }
 
-/* Status Specific Backgrounds */
 .status-open { background-color: #FF9595; }
 .status-bargain { background-color: #FFF693; }
 .status-confirm { background-color: #ABFFAF; }
 .status-completed { background-color: #FFBCF3; }
 
-/* Tightening internal spacing */
 .gig-detail-tile h3 {
     font-family: 'Fugaz One', cursive;
     color: #8800B5;
@@ -615,7 +618,7 @@ body.customer-mode, body.worker-mode {
    ========================================== */
 
 .post-success-box {
-    background-color: #8800B5 !important; /* Purple background */
+    background-color: #8800B5 !important;
     border: 4px solid #000000 !important;
     width: 400px !important;
     height: 150px !important;
@@ -627,10 +630,189 @@ body.customer-mode, body.worker-mode {
 }
 
 .success-msg {
-    color: #F5F5DC !important; /* Beige text */
+    color: #F5F5DC !important;
     font-family: 'Fredoka', sans-serif;
     font-weight: 600;
     font-size: 2rem;
     text-align: center;
     margin: 0;
+}
+
+
+
+/* ==========================================
+       GIG VIEW MODAL REFINED STYLES
+   ========================================== */
+
+.gig-view-card {
+    max-width: 975px !important;
+    width: 90% !important;
+    background-color: #f5f5dc !important;
+    padding: 30px !important;
+    text-align: left !important;
+    position: relative;
+}
+
+.detail-main-title {
+    text-align: center !important;
+    text-decoration: underline !important;
+    margin-bottom: 25px !important;
+    font-size: 2.2rem !important;
+}
+
+.detail-triple-row {
+    display: flex;
+    gap: 20px;
+    width: 95%;
+    margin: 0 auto 15px auto;
+}
+
+.detail-triple-row .detail-slot-row {
+    flex: 1;
+    margin: 0;
+}
+
+.detail-slot-row {
+    margin-bottom: 15px;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.detail-slot-row label {
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 5px;
+    color: #000;
+}
+
+.static-slot {
+    background-color: #ffffff;
+    border: 2px solid #000000;
+    border-radius: 6px;
+    padding: 10px 12px;
+    min-height: 40px;
+    font-family: 'Fredoka', sans-serif;
+    color: #333;
+}
+
+.description-slot {
+    min-height: 80px;
+}
+
+.image-display-area {
+    background-color: #ffffff;
+    border: 2px solid #000000;
+    border-radius: 6px;
+    padding: 10px;
+    min-height: 60px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.edit-btn { background: #8800B5; color: #ffffff; margin-top: 10px; }
+.remove-btn { background: #FF0000; color: #ffffff; margin-top: 10px; }
+.accept-btn { background: #ABFFAF; color: #000000; margin-top: 10px; }
+.bargain-btn { background: #FFF693; color: #000000; margin-top: 10px; }
+
+
+
+/* ==========================================
+        BACK ARROW GIG CATEGORY PAGES
+   ========================================== */
+
+.back-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    width: 100%;
+}
+
+.header-back-arrow-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    background-color: #8800B5;
+    padding: 10px 15px;
+    border-radius: 8px;
+}
+
+.header-back-arrow-right svg path {
+    stroke: #F5F5DC;
+}
+
+.header-back-arrow-right:hover {
+    transform: scale(1.1);
+}
+
+
+
+/* ==========================================
+        GIG REMOVAL POPUP STYLES
+   ========================================== */
+
+.remove-confirm-theme {
+    background-color: #F5F5DC;
+    border: 3px solid #000000;
+    border-radius: 25px;
+    text-align: center;
+    padding: 35px;
+}
+
+.remove-confirm-theme p {
+    color: #000000;
+    margin-bottom: 25px;
+}
+
+.btn-no-grey {
+    background-color: #CCCCCC !important;
+    color: #000000 !important;
+    border: 2px solid #000000 !important;
+    margin-top: 0 !important;
+}
+
+.btn-yes-red {
+    background-color: #FF0000 !important;
+    color: #FFFFFF !important;
+    border: 2px solid #000000 !important;
+    margin-top: 0 !important;
+}
+
+
+
+/* ==========================================
+            CHAT CONTAINER
+   ========================================== */
+
+.input-row {
+    display: flex !important;
+    gap: 10px !important;
+}
+
+.input-row input {
+    flex: 1 !important;
+}
+
+.input-row .homegigs-button {
+    width: 80px !important;
+    padding: 0 !important;
+    transform: none !important;
+    transition: none !important;
+}
+
+.input-row .homegigs-button:hover {
+    transform: none !important;
+    box-shadow: none !important;
 }

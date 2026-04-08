@@ -37,12 +37,50 @@
                 <img id="DashboardLogo" src="IMAGES/HomeGigsLogo.png" alt="HomeGigs Logo">
                 <h1 class="purple-heading">Inbox</h1>
             </div>
-            <p class="welcome-text">Connect with customers, bargain the prices, and manage your conversations here...</p>
+            <p class="welcome-text">Manage your active jobs, negotiate prices, and chat with customers here...</p>
         </header>
 
         <section class="content-body">
-            <div class="placeholder-card">
-                <p>You have no active chats at the moment.</p>
+            <div class="chat-list-container" style="display: flex; flex-direction: column; gap: 15px;">
+                <% if (typeof gigs !== 'undefined' && gigs.length > 0) { %>
+                    <% 
+                       // Filter specifically for active negotiations or confirmed jobs
+                       const activeChats = gigs.filter(g => g.status === 'BARGAIN' || g.status === 'CONFIRM'); 
+                    %>
+                    
+                    <% if (activeChats.length > 0) { %>
+                        <% activeChats.forEach(gig => { %>
+                            <div class="gig-detail-tile" 
+                                 onclick="window.location.href='/view-chat/worker/<%= gig._id %>'"
+                                 style="cursor: pointer; border-left: 10px solid" <%= gig.status === 'CONFIRM' ? '#ABFFAF' : '#FFEB3B' %>
+                                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                                    <div>
+                                        <h3 style="margin: 0; font-family: 'Fugaz One'; color: #8800B5;">
+                                            <%= gig.title.toUpperCase() %>
+                                        </h3>
+                                        <p style="margin: 5px 0 0 0; font-family: 'Fredoka';">
+                                            Status: <strong><%= gig.status %></strong>
+                                        </p>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <p style="margin: 0; font-family: 'Fugaz One'; font-size: 1.2rem;">
+                                            $<%= gig.negotiated_price || gig.budget %>
+                                        </p>
+                                        <small style="font-family: 'Fredoka'; color: #666;">View Conversation</small>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }); %>
+                    <% } else { %>
+                        <div class="placeholder-card">
+                            <p>You have no active chats at the moment.</p>
+                        </div>
+                    <% } %>
+                <% } else { %>
+                    <div class="placeholder-card">
+                        <p>You have no active chats at the moment.</p>
+                    </div>
+                <% } %>
             </div>
             <div style="height: 100px;"></div>
         </section>

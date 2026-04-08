@@ -36,21 +36,19 @@
 
         <section class="content-body">
             <h2 class="carousel-heading">Gigs by category</h2>
-            
             <div class="carousel-container">
                 <div class="carousel-track">
-                    <img src="IMAGES/AssemblingTile.png" alt="Assembling" class="carousel-tile">
-                    <img src="IMAGES/LeavesRakingTile.png" alt="Leaves Raking" class="carousel-tile">
-                    <img src="IMAGES/MovingTile.png" alt="Moving" class="carousel-tile">
-                    <img src="IMAGES/PaintingTile.png" alt="Painting" class="carousel-tile">
-                    <img src="IMAGES/PlumbingTile.png" alt="Plumbing" class="carousel-tile">
-                    <img src="IMAGES/SnowBlowingTile.png" alt="Snow Blowing" class="carousel-tile">
-                    <img src="IMAGES/WindowsCleaningTile.png" alt="Windows Cleaning" class="carousel-tile">
+                   <a href="assembling.html"><img src="IMAGES/AssemblingTile.png" alt="Assembling" class="carousel-tile"></a>
+                   <a href="leaves-raking.html"><img src="IMAGES/LeavesRakingTile.png" alt="Leaves Raking" class="carousel-tile"></a>
+                   <a href="moving.html"><img src="IMAGES/MovingTile.png" alt="Moving" class="carousel-tile"></a>
+                   <a href="painting.html"><img src="IMAGES/PaintingTile.png" alt="Painting" class="carousel-tile"></a>
+                   <a href="plumbing.html"><img src="IMAGES/PlumbingTile.png" alt="Plumbing" class="carousel-tile"></a>
+                   <a href="snow-blowing.html"><img src="IMAGES/SnowBlowingTile.png" alt="Snow Blowing" class="carousel-tile"></a>
+                   <a href="windows-cleaning.html"><img src="IMAGES/WindowsCleaningTile.png" alt="Windows Cleaning" class="carousel-tile"></a>
                 </div>
             </div>
 
             <h2 class="carousel-heading">Gigs by time</h2>
-
             <div class="gigs-time-container">
                 <div class="gig-column">
                     <div class="column-header">On The Spot</div>
@@ -58,7 +56,15 @@
                         <% if (typeof gigs !== 'undefined' && gigs.length > 0) { %>
                             <% gigs.forEach(gig => { %>
                                 <% if (!gig.date_needed || gig.date_needed === "") { %>
-                                    <div class="gig-detail-tile">
+                                    <div class="gig-detail-tile"
+                                    data-id="<%= gig._id %>"
+                                         data-title="<%= gig.title %>"
+                                         data-category="<%= gig.category %>"
+                                         data-description="<%= gig.description %>"
+                                         data-budget="<%= gig.budget %>"
+                                         data-date="On The Spot"
+                                         data-address="<%= gig.address %>"
+                                         data-images="<%= gig.images ? gig.images.join(',') : '' %>">
                                         <h3><%= gig.title.toUpperCase() %></h3>
                                         <p><strong>Category:</strong> <%= gig.category %></p>
                                         <p><strong>Budget:</strong> $<%= gig.budget %></p>
@@ -80,7 +86,15 @@
                                     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
                                     let formattedDate = months[d.getUTCMonth()] + " " + d.getUTCDate();
                                 %>
-                                    <div class="gig-detail-tile">
+                                    <div class="gig-detail-tile"
+                                    data-id="<%= gig._id %>"
+                                         data-title="<%= gig.title %>"
+                                         data-category="<%= gig.category %>"
+                                         data-description="<%= gig.description %>"
+                                         data-budget="<%= gig.budget %>"
+                                         data-date="<%= formattedDate %>"
+                                         data-address="<%= gig.address %>"
+                                         data-images="<%= gig.images ? gig.images.join(',') : '' %>">
                                         <h3><%= gig.title.toUpperCase() %></h3>
                                         <p><strong>Category:</strong> <%= gig.category %></p>
                                         <p><strong>Budget:</strong> $<%= gig.budget %></p>
@@ -99,12 +113,61 @@
                     <p>Currently, no gigs are available in your area. Please try again later.</p>
                 </div>
             <% } %>
-            
             <div style="height: 100px;"></div>
         </section>
     </main>
 
+    <div id="gigDetailsModalWorker" class="modal-overlay">
+        <div class="modal-content gig-view-card">
+            <h2 id="work-display-title" class="purple-heading detail-main-title"></h2>
+            
+            <div class="detail-triple-row">
+                <div class="detail-slot-row">
+                    <label>Gig Category:</label>
+                    <p id="work-display-category" class="static-slot"></p>
+                </div>
+                <div class="detail-slot-row">
+                    <label>Gig Budget:</label>
+                    <p id="work-display-budget" class="static-slot"></p>
+                </div>
+                <div class="detail-slot-row">
+                    <label>Gig Date:</label>
+                    <p id="work-display-date" class="static-slot"></p>
+                </div>
+            </div>
+
+            <div class="detail-slot-row">
+                <label>Gig Description:</label>
+                <p id="work-display-description" class="static-slot description-slot"></p>
+            </div>
+
+            <div class="detail-slot-row">
+                <label>Gig Address:</label>
+                <p id="work-display-address" class="static-slot"></p>
+            </div>
+
+            <div class="detail-slot-row">
+                <label>Gig Images:</label>
+                <div id="work-display-images" class="image-display-area"></div>
+            </div>
+
+            <div class="modal-buttons">
+                <button class="homegigs-button accept-btn">ACCEPT GIG</button>
+                <button class="homegigs-button bargain-btn">BARGAIN GIG</button>
+            </div>
+
+            <div class="back-button-container">
+                <a href="javascript:void(0)" class="back-arrow-link" onclick="$('#gigDetailsModalWorker').fadeOut(300)">
+                    <svg width="60" height="24" viewBox="0 0 60 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 12H59M1 12L12 1M1 12L12 23" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="JAVASCRIPT/script.js"></script>
+    <script src="JAVASCRIPT/popups.js"></script>
 </body>
 </html>

@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HomeGigs | Post Gig</title>
+    <title>HomeGigs | <%= (typeof isEdit !== 'undefined' && isEdit) ? 'Edit Gig' : 'Post Gig' %></title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Fugaz+One&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="/CSS/style.css">
 </head>
 <body class="customer-mode">
 
@@ -13,16 +13,16 @@
         <div class="nav-links">
             <div class="top-nav">
                 <a href="dashboard-customer.html">
-                    <img src="IMAGES/HomeSymbol.png" class="nav-icon" alt="Home">
+                    <img src="/IMAGES/HomeSymbol.png" class="nav-icon" alt="Home">
                 </a>
-                <a href="chats-customer.html"><img src="IMAGES/InboxSymbol.png" class="nav-icon" alt="Chats"></a>
-                <a href="post-gig.html" class="active">
-                    <img src="IMAGES/AddPostSymbol.png" class="nav-icon" alt="Post">
+                <a href="chats-customer.html"><img src="/IMAGES/InboxSymbol.png" class="nav-icon" alt="Chats"></a>
+                <a href="post-gig.html" class="<%= (typeof isEdit !== 'undefined' && isEdit) ? '' : 'active' %>">
+                    <img src="/IMAGES/AddPostSymbol.png" class="nav-icon" alt="Post">
                 </a>
             </div>
             
             <div class="bottom-nav">
-                <a href="account-customer.html"><img src="IMAGES/ProfileSymbol.png" class="nav-icon" alt="Profile"></a>
+                <a href="account-customer.html"><img src="/IMAGES/ProfileSymbol.png" class="nav-icon" alt="Profile"></a>
             </div>
         </div>
     </nav>
@@ -30,57 +30,69 @@
     <main class="dashboard-content">
         <header class="dashboard-header">
             <div class="title-container">
-                <img id="DashboardLogo" src="IMAGES/HomeGigsLogo.png" alt="HomeGigs Logo">
-                <h1 class="purple-heading">Post Gig</h1>
+                <img id="DashboardLogo" src="/IMAGES/HomeGigsLogo.png" alt="HomeGigs Logo">
+                <h1 class="purple-heading"><%= (typeof isEdit !== 'undefined' && isEdit) ? 'Edit Gig' : 'Post Gig' %></h1>
             </div>
-            <p class="welcome-text">Enter the required details and submit the form in order to post a gig...</p>
+            <p class="welcome-text">
+                <%= (typeof isEdit !== 'undefined' && isEdit) ? 'Modify your gig details below and update your request...' : 'Enter the required details and submit the form in order to post a gig...' %>
+            </p>
         </header>
 
         <section class="content-body">
             
-            <h2 class="carousel-heading">Gig submission form</h2>
+            <h2 class="carousel-heading"><%= (typeof isEdit !== 'undefined' && isEdit) ? 'Gig update form' : 'Gig submission form' %></h2>
 
             <div class="form-container">
-                <form id="gigForm" action="/post-gig" method="POST">
+                <% 
+                    let formAction = "/post-gig";
+                    if (typeof isEdit !== 'undefined' && isEdit) {
+                        formAction = "/update-gig/" + gig._id;
+                    }
+                %>
+                <form id="gigForm" action="<%= formAction %>" method="POST">
                     
                     <div class="form-group">
                         <label>Gig Category:</label>
                         <select name="category" required>
                             <option value="">Select a category</option>
-                            <option value="Assembling">Assembling</option>
-                            <option value="Leaves Raking">Leaves Raking</option>
-                            <option value="Moving">Moving</option>
-                            <option value="Painting">Painting</option>
-                            <option value="Plumbing">Plumbing</option>
-                            <option value="Snow Blowing">Snow Blowing</option>
-                            <option value="Windows Cleaning">Windows Cleaning</option>
+                            <% const categories = ["Assembling", "Leaves Raking", "Moving", "Painting", "Plumbing", "Snow Blowing", "Windows Cleaning"]; %>
+                            <% categories.forEach(cat => { %>
+                                <option value="<%= cat %>" <%= (typeof gig !== 'undefined' && gig.category === cat) ? 'selected' : '' %> ><%= cat %></option>
+                            <% }); %>
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label>Gig Title:</label>
-                        <input type="text" name="title" placeholder="e.g., Fix leaky faucet" required>
+                        <input type="text" name="title" placeholder="e.g., Fix leaky faucet" required value="<%= (typeof gig !== 'undefined') ? gig.title : '' %>">
                     </div>
 
                     <div class="form-group">
                         <label>Gig Description:</label>
-                        <textarea name="description" rows="4" placeholder="Describe the job in detail..." required></textarea>
+                        <textarea name="description" rows="4" placeholder="Describe the job in detail..." required><%= (typeof gig !== 'undefined') ? gig.description : '' %></textarea>
                     </div>
 
                     <div class="form-group">
                         <label>Home Address:</label>
-                        <input type="text" name="address" placeholder="e.g., 123 Street Name, Unit 45, Regina, SK" required>
+                        <input type="text" name="address" placeholder="e.g., 123 Street Name, Unit 45, Regina, SK" required value="<%= (typeof gig !== 'undefined') ? gig.address : '' %>">
                     </div>
 
                     <div class="form-group">
                         <label>Date Needed:</label>
                         <p class="form-instruction">Enter a date for Scheduled Gig or leave it without a date for On The Spot Gig</p>
-                        <input type="date" name="date_needed">
+                        <% 
+                            let dateVal = "";
+                            if (typeof gig !== 'undefined' && gig.date_needed) {
+                                // Format date to YYYY-MM-DD for the input field
+                                dateVal = new Date(gig.date_needed).toISOString().split('T')[0];
+                            }
+                        %>
+                        <input type="date" name="date_needed" value="<%= dateVal %>">
                     </div>
 
                     <div class="form-group">
                         <label>Budget Allocation ($):</label>
-                        <input type="number" name="budget" placeholder="Enter amount" required>
+                        <input type="number" name="budget" placeholder="Enter amount" required value="<%= (typeof gig !== 'undefined') ? gig.budget : '' %>">
                     </div>
 
                     <div class="form-group">
@@ -88,7 +100,9 @@
                         <input type="file" name="gig_images" multiple disabled title="Image upload will be implemented in the next phase">
                     </div>
 
-                    <button type="submit" class="submit-gig-btn">POST NOW</button>
+                    <button type="submit" class="submit-gig-btn">
+                        <%= (typeof isEdit !== 'undefined' && isEdit) ? 'UPDATE NOW' : 'POST NOW' %>
+                    </button>
                 </form>
             </div>
             
@@ -98,12 +112,14 @@
 
     <div id="postSuccessModal" class="modal-overlay" style="display: none;">
         <div class="modal-content post-success-box">
-            <p class="success-msg">Gig has been posted!</p>
+            <p class="success-msg">
+                <%= (typeof isEdit !== 'undefined' && isEdit) ? 'Gig has been updated!' : 'Gig has been posted!' %>
+            </p>
         </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="JAVASCRIPT/script.js"></script>
-    <script src="JAVASCRIPT/popups.js"></script>
+    <script src="/JAVASCRIPT/script.js"></script>
+    <script src="/JAVASCRIPT/popups.js"></script>
 </body>
 </html>

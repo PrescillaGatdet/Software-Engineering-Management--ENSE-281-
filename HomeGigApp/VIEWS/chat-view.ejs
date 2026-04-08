@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomeGigs | Chat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Fugaz+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/CSS/style.css">
+</head>
+<body class="<%= role %>-mode">
+
+    <nav id="sidebar">
+        <div class="nav-links">
+            <div class="top-nav">
+                <a href="/dashboard-<%= role %>.html">
+                    <img src="/IMAGES/HomeSymbol.png" class="nav-icon" alt="Home">
+                </a>
+                <a href="/chats-<%= role %>.html">
+                    <img src="/IMAGES/InboxSymbol.png" class="nav-icon" alt="Chats">
+                </a>
+                <a href="/<%= role === 'customer' ? 'post-gig.html' : 'earnings.html' %>">
+                    <img src="/IMAGES/<%= role === 'customer' ? 'AddPostSymbol.png' : 'EarningSymbol.png' %>" class="nav-icon" alt="Action">
+                </a>
+            </div>
+            <div class="bottom-nav">
+                <a href="/account-<%= role %>.html">
+                    <img src="/IMAGES/ProfileSymbol.png" class="nav-icon" alt="Profile">
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="dashboard-content">
+        <header class="dashboard-header">
+            <div class="title-container">
+                <img id="DashboardLogo" src="/IMAGES/HomeGigsLogo.png" alt="HomeGigs Logo">
+                <h1 class="purple-heading"><%= gig.title.toUpperCase() %></h1>
+                
+                <a href="/chats-<%= role %>.html" class="header-back-arrow-right">
+                    <svg width="40" height="30" viewBox="0 0 60 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 12H59M1 12L12 1M1 12L12 23" stroke="#8800B5" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            </div>
+        </header>
+
+        <section class="content-body" style="display: flex; gap: 20px; height: 60vh; margin-top: 20px;">
+            
+            <div class="chat-container" style="flex: 2; background: white; border: 3px solid #000; border-radius: 15px; display: flex; flex-direction: column; overflow: hidden;">
+                <div id="chat-messages" style="flex: 1; padding: 20px; overflow-y: auto; font-family: 'Fredoka';">
+                    <p style="text-align: center; color: #888;">Starting chat regarding <%= gig.title %>...</p>
+                    <div style="height: 10px;"></div>
+                </div>
+                
+                <div class="input-row" style="padding: 15px; border-top: 3px solid #000; display: flex; gap: 10px; background: #fff;">
+                    <input type="text" placeholder="Type your message..." style="flex: 1; padding: 12px; border-radius: 8px; border: 2px solid #000; font-family: 'Fredoka'; outline: none;">
+                    <button class="homegigs-button" style="padding: 5px 25px; background: #8800B5; color: white; border: none; cursor: pointer;">SEND</button>
+                </div>
+            </div>
+
+            <div class="gig-info-sidebar" style="flex: 1; display: flex; flex-direction: column; gap: 15px;">
+                <div class="info-card" style="background: #F5F5DC; border: 3px solid #000; border-radius: 15px; padding: 20px; font-family: 'Fredoka';">
+                    <h3 style="font-family: 'Fugaz One'; color: #8800B5; margin-bottom: 10px;">GIG SUMMARY</h3>
+                    <p style="margin-bottom: 5px;"><strong>Category:</strong> <%= gig.category %></p>
+                    <p style="margin-bottom: 5px;"><strong>Address:</strong> <%= gig.address %></p>
+                    <p style="margin-bottom: 5px;"><strong>Status:</strong> <span style="color: #8800B5; font-weight: 600;"><%= gig.status %></span></p>
+                </div>
+
+                <% if (gig.status === 'BARGAIN') { %>
+                    <div class="bargain-box" style="background: #FFF; border: 3px solid #000; border-radius: 15px; padding: 20px; text-align: center;">
+                        <p style="font-family: 'Fredoka'; font-weight: 600; margin-bottom: 10px;">Posted Price: $<%= gig.budget %></p>
+                        
+                        <input type="number" 
+                               id="bargain-price-input"
+                               value="<%= gig.current_bargain_price || gig.budget %>" 
+                               style="width: 85%; padding: 10px; margin-bottom: 15px; border: 2px solid #000; border-radius: 8px; text-align: center; font-family: 'Fredoka';"
+                               onchange="updateBargainPrice('<%= gig._id %>')">
+                        
+                        <div style="display: flex; gap: 10px; justify-content: center;">
+                            <form action="/accept-bargain/<%= role %>/<%= gig._id %>" method="POST" style="margin: 0;">
+                                <button type="submit" class="homegigs-button" style="background: #ABFFAF; color: black; font-size: 0.9rem; padding: 8px 15px;">
+                                    ACCEPT BARGAIN
+                                </button>
+                            </form>
+
+                            <form action="/reject-bargain/<%= role %>/<%= gig._id %>" method="POST" style="margin: 0;">
+                                <button type="submit" class="homegigs-button" style="background: #FF9595; color: black; font-size: 0.9rem; padding: 8px 15px;">REJECT BARGAIN</button>
+                            </form>
+                        </div>
+                    </div>
+                <% } else if (gig.status === 'CONFIRM') { %>
+                    <div style="background: #ABFFAF; border: 3px solid #000; border-radius: 15px; padding: 20px; text-align: center;">
+                        <p style="font-family: 'Fugaz One'; color: #155724; margin-bottom: 5px;">APPROVED PRICE</p>
+                        <p style="font-family: 'Fredoka'; font-size: 1.8rem; font-weight: 600;">$<%= gig.negotiated_price || gig.budget %></p>
+                        
+                        <% if (role === 'worker') { %>
+                            <form action="/complete-gig/<%= gig._id %>" method="POST" style="margin-top: 15px;">
+                                <button type="submit" class="homegigs-button" style="background: #E0B0FF; color: black; font-weight: 600; padding: 10px 20px;">
+                                    GIG COMPLETED
+                                </button>
+                            </form>
+                        <% } %>
+                    </div>
+                <% } else if (gig.status === 'COMPLETE') { %>
+                    <div style="background: #FFBCF3; border: 3px solid #000; border-radius: 15px; padding: 20px; text-align: center;">
+                        <p style="font-family: 'Fugaz One'; color: #4B0082; margin-bottom: 5px;">GIG COMPLETE</p>
+                        <p style="font-family: 'Fredoka'; font-size: 1.2rem; font-weight: 600;">Paid: $<%= gig.negotiated_price || gig.budget %></p>
+                    </div>
+                <% } %>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/JAVASCRIPT/popups.js"></script>
+
+    <script>
+        function updateBargainPrice(gigId) {
+            const newPrice = document.getElementById('bargain-price-input').value;
+            fetch('/update-bargain-price/' + gigId, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ price: newPrice })
+            })
+            .then(response => {
+                if(response.ok) {
+                    console.log("Price updated on server");
+                    window.location.reload();
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomeGigs | Moving</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Fugaz+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body class="worker-mode">
+    <nav id="sidebar">
+        <div class="nav-links">
+            <div class="top-nav">
+                <a href="dashboard-worker.html">
+                    <img src="IMAGES/HomeSymbol.png" class="nav-icon" alt="Home">
+                </a>
+                <a href="chats-worker.html"><img src="IMAGES/InboxSymbol.png" class="nav-icon" alt="Chats"></a>
+                <a href="earnings.html"><img src="IMAGES/EarningSymbol.png" class="nav-icon" alt="Earnings"></a>
+            </div>
+            <div class="bottom-nav">
+                <a href="account-worker.html"><img src="IMAGES/ProfileSymbol.png" class="nav-icon" alt="Profile"></a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="dashboard-content">
+        <header class="dashboard-header">
+            <div class="title-container">
+                <img id="DashboardLogo" src="IMAGES/HomeGigsLogo.png" alt="HomeGigs Logo">
+                <h1 class="purple-heading">Moving</h1>
+                <a href="javascript:history.back()" class="header-back-arrow-right">
+            <svg width="40" height="30" viewBox="0 0 60 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 12H59M1 12L12 1M1 12L12 23" stroke="#8459FF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </a>
+            </div>
+        </header>
+
+        <section class="content-body">
+            <div class="category-gigs-list">
+                <% if (typeof gigs !== 'undefined' && gigs.length > 0) { %>
+                    <% let count = 0; %>
+                    <% gigs.forEach(gig => { %>
+                        <% if (gig.category === 'Moving') { %>
+                            <% count++; %>
+                            <div class="gig-detail-tile"
+                            data-id="<%= gig._id %>"
+                                 data-title="<%= gig.title %>"
+                                 data-category="<%= gig.category %>"
+                                 data-description="<%= gig.description %>"
+                                 data-budget="<%= gig.budget %>"
+                                 data-date="<%= gig.date_needed || 'On The Spot' %>"
+                                 data-address="<%= gig.address %>"
+                                 data-images="<%= gig.images ? gig.images.join(',') : '' %>">
+                                <h3><%= gig.title.toUpperCase() %></h3>
+                                <p><strong>Budget:</strong> $<%= gig.budget %></p>
+                                <p><strong>Address:</strong> <%= gig.address %></p>
+                                <p><strong>Date:</strong> <%= gig.date_needed || 'On The Spot' %></p>
+                            </div>
+                        <% } %>
+                    <% }); %>
+                    <% if (count === 0) { %>
+                        <div class="placeholder-card"><p>No Moving gigs available right now.</p></div>
+                    <% } %>
+                <% } %>
+            </div>
+            <div style="height: 100px;"></div>
+        </section>
+    </main>
+
+    <div id="gigDetailsModalWorker" class="modal-overlay">
+        <div class="modal-content gig-view-card">
+            <h2 id="work-display-title" class="purple-heading detail-main-title"></h2>
+            <div class="detail-triple-row">
+                <div class="detail-slot-row"><label>Gig Category:</label><p id="work-display-category" class="static-slot"></p></div>
+                <div class="detail-slot-row"><label>Gig Budget:</label><p id="work-display-budget" class="static-slot"></p></div>
+                <div class="detail-slot-row"><label>Gig Date:</label><p id="work-display-date" class="static-slot"></p></div>
+            </div>
+            <div class="detail-slot-row"><label>Gig Description:</label><p id="work-display-description" class="static-slot description-slot"></p></div>
+            <div class="detail-slot-row"><label>Gig Address:</label><p id="work-display-address" class="static-slot"></p></div>
+            <div class="detail-slot-row"><label>Gig Images:</label><div id="work-display-images" class="image-display-area"></div></div>
+            <div class="modal-buttons">
+                <button class="homegigs-button accept-btn">ACCEPT GIG</button>
+                <button class="homegigs-button bargain-btn">BARGAIN GIG</button>
+            </div>
+            <div class="back-button-container">
+                <a href="javascript:void(0)" class="back-arrow-link" onclick="$('#gigDetailsModalWorker').fadeOut(300)">
+                    <svg width="60" height="24" viewBox="0 0 60 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 12H59M1 12L12 1M1 12L12 23" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="JAVASCRIPT/popups.js"></script>
+</body>
+</html>

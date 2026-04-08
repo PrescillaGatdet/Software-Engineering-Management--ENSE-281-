@@ -61,9 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (gigDescription) {
         gigDescription.addEventListener('input', function() {
-            // Reset height to shrink if text is deleted
             this.style.height = 'auto';
-            // Set height to match the internal content height
             this.style.height = (this.scrollHeight) + 'px';
         });
     }
