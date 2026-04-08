@@ -35,13 +35,31 @@
                 <img id="DashboardLogo" src="IMAGES/HomeGigsLogo.png" alt="HomeGigs Logo">
                 <h1 class="purple-heading">Earning Statements</h1>
             </div>
-            <p class="welcome-text">Check out your weekly earnings and daily breakouts from each week...</p>
+            <p class="welcome-text">Check out the aspects of your completed gigs and their respective earnings...</p>
         </header>
 
         <section class="content-body">
-            <div class="placeholder-card">
-                <p>No earning statements found for this period.</p>
-            </div>
+            <% if (gigs && gigs.length > 0) { %>
+                <div class="earnings-list-container">
+                    <% gigs.forEach(item => { %>
+                        <div class="earning-statement-tile">
+                            <div class="statement-info-content">
+                                <h3 class="statement-title-text"><%= item.title %></h3>
+                                <p class="statement-detail-text">
+                                    <%= item.category %> | <%= item.address %>
+                                </p>
+                            </div>
+                            <div class="statement-price-right">
+                                $<%= item.budget %>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            <% } else { %>
+                <div class="placeholder-card">
+                    <p>No earning statements found for this period.</p>
+                </div>
+            <% } %>
         </section>
     </main>
 

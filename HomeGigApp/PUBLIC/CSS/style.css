@@ -816,3 +816,62 @@ body.customer-mode, body.worker-mode {
     transform: none !important;
     box-shadow: none !important;
 }
+
+
+
+/* ==========================================
+            EARNINGS PAGE STYLES
+   ========================================== */
+
+.earnings-list-container {
+    width: 95%; 
+    max-width: 1200px;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.earning-statement-tile {
+    background-color: #8800B5;
+    border: 3px solid #000000;
+    border-radius: 12px;
+    padding: 12px 30px;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    transition: transform 0.2s ease;
+}
+
+.earning-statement-tile:hover {
+    transform: scale(1.005);
+}
+
+.statement-info-content {
+    display: flex;
+    flex-direction: column; 
+    gap: 2px;
+}
+
+.statement-title-text {
+    font-family: 'Fugaz One', cursive;
+    color: #F5F5DC;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.statement-detail-text {
+    font-family: 'Fredoka', sans-serif;
+    color: #F5F5DC;
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin: 0;
+}
+
+.statement-price-right {
+    font-family: 'Fugaz One', cursive;
+    color: #F5F5DC;
+    font-size: 1.8rem;
+    white-space: nowrap;
+}

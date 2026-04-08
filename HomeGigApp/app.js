@@ -3,6 +3,7 @@ const path = require("path");
 const mongoose = require("mongoose"); 
 const Gigs = require("./MODELS/gigs"); 
 const Chat = require("./MODELS/chats");
+const Amount = require("./MODELS/amounts");
 const app = express();
 
 // --- DATABASE CONNECTION ---
@@ -167,15 +168,30 @@ app.post("/reject-bargain/:role/:id", async (req, res) => {
     }
 });
 
-// --- COMPLETE GIG ROUTE (Worker Only) ---
+// --- COMPLETE GIG ROUTE ---
 app.post("/complete-gig/:id", async (req, res) => {
     try {
         const gigId = req.params.id;
-        await Gigs.findByIdAndUpdate(gigId, { 
-            status: "COMPLETE",
-            worker_done: true 
-        });
-        res.redirect(`/view-chat/worker/${gigId}`);
+        const gig = await Gigs.findById(gigId);
+        
+        if (gig) {
+            const earningRecord = new Amount({
+                title: gig.title,
+                category: gig.category,
+                address: gig.address,
+                budget: gig.negotiated_price || gig.budget
+            });
+            await earningRecord.save();
+
+            await Gigs.findByIdAndUpdate(gigId, { 
+                status: "COMPLETE",
+                worker_done: true 
+            });
+
+            res.redirect(`/view-chat/worker/${gigId}`);
+        } else {
+            res.status(404).send("Gig not found.");
+        }
     } catch (err) {
         res.send("Error completing gig.");
     }
@@ -227,6 +243,17 @@ pages.forEach(page => {
             try {
                 const allGigs = await Gigs.find();
                 res.render(page, { gigs: allGigs });
+            } catch (err) {
+                res.render(page, { gigs: [] });
+            }
+        }
+        else if (page === "earnings") {
+            try {
+                // Experimental: Uncomment the line below, restart server, and refresh browser to delete all earnings.
+                // await Amount.deleteMany({}); 
+
+                const earningsHistory = await Amount.find().sort({ dateCompleted: -1 });
+                res.render(page, { gigs: earningsHistory });
             } catch (err) {
                 res.render(page, { gigs: [] });
             }
