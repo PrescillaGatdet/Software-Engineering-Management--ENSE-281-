@@ -3,16 +3,13 @@ const mongoose = require('mongoose');
 const chatSchema = new mongoose.Schema({
     gigId: { 
         type: mongoose.Schema.Types.ObjectId, 
-        ref: 'Gig', 
+        ref: 'Gigs',
         required: true 
     },
-    customerEmail: { type: String, required: true },
-    workerEmail: { type: String, required: true },
-    status: { 
-        type: String, 
-        enum: ['BARGAIN', 'CONFIRMED'], 
-        default: 'CONFIRMED'
-    },
+
+    customerEmail: { type: String }, 
+    workerEmail: { type: String }, 
+    status: { type: String, default: 'BARGAIN' },
     messages: [{
         sender: { type: String },
         text: { type: String },

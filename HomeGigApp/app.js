@@ -203,9 +203,43 @@ app.get("/view-chat/:role/:id", async (req, res) => {
         const { role, id } = req.params;
         const gig = await Gigs.findById(id);
         if (!gig) return res.status(404).send("Gig not found.");
-        res.render("chat-view", { gig: gig, role: role });
+
+        const chatRecord = await Chat.findOne({ gigId: id });
+        const messages = chatRecord ? chatRecord.messages : [];
+
+        res.render("chat-view", { 
+            gig: gig, 
+            role: role,
+            messages: messages 
+        });
     } catch (err) {
         res.send("Error loading the chat.");
+    }
+});
+
+// --- SEND MESSAGE ROUTE ---
+app.post("/send-message/:role/:id", async (req, res) => {
+    try {
+        const { role, id } = req.params;
+        const { messageText } = req.body;
+
+        await Chat.findOneAndUpdate(
+            { gigId: id },
+            { 
+                $push: { 
+                    messages: { 
+                        sender: role, 
+                        text: messageText, 
+                        timestamp: new Date() 
+                    } 
+                } 
+            },
+            { upsert: true }
+        );
+
+        res.redirect(`/view-chat/${role}/${id}`);
+    } catch (err) {
+        res.status(500).send("Error sending message.");
     }
 });
 
@@ -249,6 +283,7 @@ pages.forEach(page => {
         }
         else if (page === "earnings") {
             try {
+
                 // Experimental: Uncomment the line below, restart server, and refresh browser to delete all earnings.
                 // await Amount.deleteMany({}); 
 

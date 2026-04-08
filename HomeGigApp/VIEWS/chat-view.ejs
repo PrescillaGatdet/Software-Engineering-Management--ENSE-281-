@@ -6,6 +6,23 @@
     <title>HomeGigs | Chat</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Fugaz+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/CSS/style.css">
+    <style>
+        .message-wrapper { display: flex; flex-direction: column; margin-bottom: 10px; }
+        .sent { align-items: flex-end; }
+        .received { align-items: flex-start; }
+
+        .message-bubble { 
+            max-width: 70%; 
+            padding: 10px 15px; 
+            border-radius: 12px; 
+            border: 2px solid #000; 
+            font-family: 'Fredoka';
+        }
+        .sent .message-bubble { background-color: #8800B5; color: white; }
+        .received .message-bubble { background-color: #F5F5DC; color: black; }
+        
+        .msg-time { font-size: 0.7rem; color: #666; margin-top: 2px; }
+    </style>
 </head>
 <body class="<%= role %>-mode">
 
@@ -35,7 +52,6 @@
             <div class="title-container">
                 <img id="DashboardLogo" src="/IMAGES/HomeGigsLogo.png" alt="HomeGigs Logo">
                 <h1 class="purple-heading"><%= gig.title.toUpperCase() %></h1>
-                
                 <a href="/chats-<%= role %>.html" class="header-back-arrow-right">
                     <svg width="40" height="30" viewBox="0 0 60 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M1 12H59M1 12L12 1M1 12L12 23" stroke="#8800B5" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -45,17 +61,29 @@
         </header>
 
         <section class="content-body" style="display: flex; gap: 20px; height: 60vh; margin-top: 20px;">
-            
             <div class="chat-container" style="flex: 2; background: white; border: 3px solid #000; border-radius: 15px; display: flex; flex-direction: column; overflow: hidden;">
-                <div id="chat-messages" style="flex: 1; padding: 20px; overflow-y: auto; font-family: 'Fredoka';">
-                    <p style="text-align: center; color: #888;">Starting chat regarding <%= gig.title %>...</p>
-                    <div style="height: 10px;"></div>
+                <div id="chat-messages" style="flex: 1; padding: 20px; overflow-y: auto;">
+                    <p style="text-align: center; color: #888; font-family: 'Fredoka';">Starting chat regarding <%= gig.title %>...</p>
+                    
+                    <% if (messages && messages.length > 0) { %>
+                        <% messages.forEach(msg => { %>
+                            <div class="message-wrapper <%= msg.sender === role ? 'sent' : 'received' %>">
+                                <div class="message-bubble">
+                                    <%= msg.text %>
+                                </div>
+                                <span class="msg-time">
+                                    <%= new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) %>
+                                </span>
+                            </div>
+                        <% }); %>
+                    <% } %>
+                    <div id="anchor"></div>
                 </div>
                 
-                <div class="input-row" style="padding: 15px; border-top: 3px solid #000; display: flex; gap: 10px; background: #fff;">
-                    <input type="text" placeholder="Type your message..." style="flex: 1; padding: 12px; border-radius: 8px; border: 2px solid #000; font-family: 'Fredoka'; outline: none;">
-                    <button class="homegigs-button" style="padding: 5px 25px; background: #8800B5; color: white; border: none; cursor: pointer;">SEND</button>
-                </div>
+                <form action="/send-message/<%= role %>/<%= gig._id %>" method="POST" class="input-row" style="padding: 15px; border-top: 3px solid #000; display: flex; gap: 10px; background: #fff;">
+                    <input type="text" name="messageText" placeholder="Type your message..." required style="flex: 1; padding: 12px; border-radius: 8px; border: 2px solid #000; font-family: 'Fredoka'; outline: none;">
+                    <button type="submit" class="homegigs-button" style="padding: 5px 25px; background: #8800B5; color: white; border: none; cursor: pointer;">SEND</button>
+                </form>
             </div>
 
             <div class="gig-info-sidebar" style="flex: 1; display: flex; flex-direction: column; gap: 15px;">
@@ -69,20 +97,11 @@
                 <% if (gig.status === 'BARGAIN') { %>
                     <div class="bargain-box" style="background: #FFF; border: 3px solid #000; border-radius: 15px; padding: 20px; text-align: center;">
                         <p style="font-family: 'Fredoka'; font-weight: 600; margin-bottom: 10px;">Posted Price: $<%= gig.budget %></p>
-                        
-                        <input type="number" 
-                               id="bargain-price-input"
-                               value="<%= gig.current_bargain_price || gig.budget %>" 
-                               style="width: 85%; padding: 10px; margin-bottom: 15px; border: 2px solid #000; border-radius: 8px; text-align: center; font-family: 'Fredoka';"
-                               onchange="updateBargainPrice('<%= gig._id %>')">
-                        
+                        <input type="number" id="bargain-price-input" value="<%= gig.current_bargain_price || gig.budget %>" style="width: 85%; padding: 10px; margin-bottom: 15px; border: 2px solid #000; border-radius: 8px; text-align: center; font-family: 'Fredoka';" onchange="updateBargainPrice('<%= gig._id %>')">
                         <div style="display: flex; gap: 10px; justify-content: center;">
                             <form action="/accept-bargain/<%= role %>/<%= gig._id %>" method="POST" style="margin: 0;">
-                                <button type="submit" class="homegigs-button" style="background: #ABFFAF; color: black; font-size: 0.9rem; padding: 8px 15px;">
-                                    ACCEPT BARGAIN
-                                </button>
+                                <button type="submit" class="homegigs-button" style="background: #ABFFAF; color: black; font-size: 0.9rem; padding: 8px 15px;">ACCEPT BARGAIN</button>
                             </form>
-
                             <form action="/reject-bargain/<%= role %>/<%= gig._id %>" method="POST" style="margin: 0;">
                                 <button type="submit" class="homegigs-button" style="background: #FF9595; color: black; font-size: 0.9rem; padding: 8px 15px;">REJECT BARGAIN</button>
                             </form>
@@ -92,12 +111,9 @@
                     <div style="background: #ABFFAF; border: 3px solid #000; border-radius: 15px; padding: 20px; text-align: center;">
                         <p style="font-family: 'Fugaz One'; color: #155724; margin-bottom: 5px;">APPROVED PRICE</p>
                         <p style="font-family: 'Fredoka'; font-size: 1.8rem; font-weight: 600;">$<%= gig.negotiated_price || gig.budget %></p>
-                        
                         <% if (role === 'worker') { %>
                             <form action="/complete-gig/<%= gig._id %>" method="POST" style="margin-top: 15px;">
-                                <button type="submit" class="homegigs-button" style="background: #E0B0FF; color: black; font-weight: 600; padding: 10px 20px;">
-                                    GIG COMPLETED
-                                </button>
+                                <button type="submit" class="homegigs-button" style="background: #E0B0FF; color: black; font-weight: 600; padding: 10px 20px;">GIG COMPLETED</button>
                             </form>
                         <% } %>
                     </div>
@@ -112,9 +128,10 @@
     </main>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="/JAVASCRIPT/popups.js"></script>
-
     <script>
+        const chatWindow = document.getElementById('chat-messages');
+        if (chatWindow) chatWindow.scrollTop = chatWindow.scrollHeight;
+
         function updateBargainPrice(gigId) {
             const newPrice = document.getElementById('bargain-price-input').value;
             fetch('/update-bargain-price/' + gigId, {
@@ -122,12 +139,7 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ price: newPrice })
             })
-            .then(response => {
-                if(response.ok) {
-                    console.log("Price updated on server");
-                    window.location.reload();
-                }
-            });
+            .then(response => { if(response.ok) window.location.reload(); });
         }
     </script>
 </body>
