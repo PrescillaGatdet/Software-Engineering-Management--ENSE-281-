@@ -1,6 +1,6 @@
 # HomeGigs App Installation, Requirements, and Instructions
 
-## Welcome to the GitHub repository for ENSE 281 - Winter 2026 - Group E
+## Go through the following details to understand the working of HomeGigs App...
 
 ### The group members are following:
 - Ali Abdullah
