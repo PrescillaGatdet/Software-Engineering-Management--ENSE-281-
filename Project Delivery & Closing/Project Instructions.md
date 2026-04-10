@@ -1,6 +1,6 @@
 # HomeGigs App Installation, Requirements, and Instructions
 
-## This is a demo version of HomeGigs App that helps users to go through the appication functionality on their own local systems.
+## This is a local version of HomeGigs App that helps users (workers and customer) to go through the appication functionality on their local systems.
 
 ### The application could be installed in your local system:
 - Ali Abdullah
