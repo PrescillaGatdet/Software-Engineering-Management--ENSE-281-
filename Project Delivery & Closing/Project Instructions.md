@@ -1,4 +1,4 @@
-# Hello Everyone,
+# HomeGigs App Installation, Requirements, and Instructions
 
 ## Welcome to the GitHub repository for ENSE 281 - Winter 2026 - Group E
 
