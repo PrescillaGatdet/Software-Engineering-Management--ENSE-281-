@@ -1,25 +1,20 @@
 # HomeGigs App Installation, Requirements, and Instructions
 
-## This is a local version of HomeGigs App that helps users (workers and customer) to go through the appication functionality on their local systems.
+## This is a local version of HomeGigs App that helps users (workers and customers) to go through the application functionality on their local systems.
 
-### The application could be installed in your local system:
+### The installation process (From GitHub) is as follows:
 - Ali Abdullah
 - Nyabijek Gatdet
 - Chiemego Emmanuel Nwokolo
 - Chinedu Godswill Nwoye
 
-### In this repository, the group will be posting different stages of the project as following:
+### The requirements to run the application effectively are as follows:
 - Project Initialization
 - Project Prerequisites & System Design
 - Project Progress Scrum / Check-in
 - Project Delivery & Closing
 
-### Project description:
-- The project is about designing and developing a web-based software application on a small to medium scale, throughout the semester.
-- The team came up with an idea of making an application that brings in different small household gigs (as jobs), all under one roof.
-- The gigs include, but are not limited to, windows cleaning, fence painting, snow blowing, leaves raking etc.
-
-### The working / main idea of this platform is as following:
+### The instructions to use the application for all basic utility are as follows:
 - The people needing a specific service will make a post with images, description and the price they are willing to pay, which will probably be less than what bigger comapnies were going to charge them with.
 - The workers who can utilize their skills in getting a job done can accept that offer, if they find the price better than what was going to be their earning for that job while working for bigger companies.
 - The game changer in this idea is to introduce a negotiation option for both parties, so they can agree on a common budget, and eliminate the need of waiting for or working under big players in the market.
