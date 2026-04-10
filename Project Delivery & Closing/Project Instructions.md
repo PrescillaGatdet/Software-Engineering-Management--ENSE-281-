@@ -1,8 +1,8 @@
 # HomeGigs App Installation, Requirements, and Instructions
 
-## Go through the following details to understand the working of HomeGigs App...
+## This is a demo version of HomeGigs App that helps users to go through the appication functionality on their own local systems.
 
-### The group members are following:
+### The application could be installed in your local system:
 - Ali Abdullah
 - Nyabijek Gatdet
 - Chiemego Emmanuel Nwokolo
