@@ -22,7 +22,7 @@
 - Copy the server URL (http://localhost:3000) from the terminal and paste it into your local system's web browser
 - The app would start, and you can leaf through both portal systems (workers and customers) by clicking the respective buttons
 - No specific login credentials are required as this code operates as admin in order to let people utilize the functionality
-- User database has been disabled for this reason, and the enabled databases are for gigs, chats, and earning statements
+- User database has been removed for demo usability, and the enabled databases are for gigs, chats, and earning statements
 - Upload images feature has also been disabled, as it is still under consideration for the next version release
 
 ## Hope you'll enjoy going through the work and efforts put in by the team!
