@@ -3,8 +3,7 @@
 ## This is a local version of HomeGigs App that helps users (workers and customers) to go through the application functionality on their local systems.
 
 ### The installation process (From GitHub) is as follows:
-- Copy and paste the following URL into your local system's web browser
-  https://github.com/PrescillaGatdet/Software-Engineering-Management--ENSE-281-/tree/main/Project%20Delivery%20%26%20Closing
+- Copy and paste the following URL into your local system's web browser - https://github.com/PrescillaGatdet/Software-Engineering-Management--ENSE-281-/tree/main/Project%20Delivery%20%26%20Closing
 - Download the folder named "Project Code (MVPs included)" into your local system
 
 ### The requirements to run the application effectively are as follows:
