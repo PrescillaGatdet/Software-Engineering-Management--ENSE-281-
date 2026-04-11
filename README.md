@@ -8,8 +8,6 @@
 - Chiemego Emmanuel Nwokolo
 - Chinedu Godswill Nwoye
 
-## Link to Homegigs Commercial: https://youtu.be/0j-FjkNAbT8
-
 ### In this repository, the group will be posting different stages of the project as following:
 - Project Initialization
 - Project Prerequisites & System Design
