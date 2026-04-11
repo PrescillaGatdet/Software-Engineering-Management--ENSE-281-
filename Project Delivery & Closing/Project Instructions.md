@@ -7,10 +7,9 @@
 - Download the folder named "Project Code (MVPs included)" into your local system
 
 ### The requirements to run the application effectively are as follows:
-- Project Initialization
-- Project Prerequisites & System Design
-- Project Progress Scrum / Check-in
-- Project Delivery & Closing
+- VS Code installed into your local system
+- Node.js installed into your local system
+- MongoDB installed into your local system
 
 ### The instructions to use the application for all basic utility are as follows:
 - The people needing a specific service will make a post with images, description and the price they are willing to pay, which will probably be less than what bigger comapnies were going to charge them with.
