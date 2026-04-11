@@ -5,7 +5,9 @@
 ### The installation process (From GitHub) is as follows:
 - Copy and paste the following URL into your local system's web browser - https://github.com/PrescillaGatdet/Software-Engineering-Management--ENSE-281-/tree/main/Project%20Delivery%20%26%20Closing
 - Download the folder named "Project Code (MVPs included)" into your local system
-- You can also download the file named "HomeGigs App.7z" and extract all folders and files onto your local system 
+- You can also download the file named "HomeGigs App.7z" and extract all folders and files onto your local system
+
+## Link to HomeGigs Commercial: https://youtu.be/0j-FjkNAbT8
 
 ### The requirements to run the application effectively are as follows:
 - VS Code installed into your local system (Coding environment)
