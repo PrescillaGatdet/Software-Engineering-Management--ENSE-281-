@@ -12,10 +12,15 @@
 - MongoDB installed into your local system (Database environment)
 
 ### The instructions to use the application for all basic utility are as follows:
-- The people needing a specific service will make a post with images, description and the price they are willing to pay, which will probably be less than what bigger comapnies were going to charge them with.
-- The workers who can utilize their skills in getting a job done can accept that offer, if they find the price better than what was going to be their earning for that job while working for bigger companies.
-- The game changer in this idea is to introduce a negotiation option for both parties, so they can agree on a common budget, and eliminate the need of waiting for or working under big players in the market.
-- The workers will accept the gigs, and the users will be notified that these workers are willing to get the job done, and the user can decide whom suits well, based on the worker profile, ratings and bargained price.
-- The platform will be making sure that both sides meet their respective needs with trust and reliability, with a friendly budget, making it a win-win situation for both sides.
+- Run VS Code on your local system and open the main folder where GitHub downloaded folder and files are located
+- Open VS terminal, and enter the following command into the terminal - node app.js
+- Press enter and a success message would appear indicating connection to server and database
+- If an error shows up, click on the downward arrow located somewhere on top right side of the terminal
+- Select command prompt from the dropdown menu, and the terminal would refreh itself
+- Enter the command into the terminal again and check for the success message again
+- Copy the server URL (http://localhost:3000) from the terminal and paste it into your local system's web browser
+- The app would start, and you can leaf through both portal systems (workers and customers) by clicking the respective buttons
+- No specific login credentials are required as this code operates as admin in order to let people utilize the functionality
+- User database has been disabled for this reason, and the enabled databases are for gigs, chats, and earning statements
 
 ## Hope you'll enjoy going through the work and efforts put in by the team!
